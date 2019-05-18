@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Average Exam Results</title>
+  <link href="styles/bootstrap.min.css" rel="stylesheet" />
+  <link href="styles/styles.css" rel='stylesheet' />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <h1 class='display-1'>Exam Results Average Calculator</h1>
+        <p class="lead">
+          <blockquote class="blockquote">
+            <p class="mb-0">Ever felt the need to know your grade given all your exam results?</p>
+          </blockquote>
+        </p>
+      </div>
+    </div>
+    <hr />
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="input-group input-group-lg">
+          <input max='100' min='0' id='scores' type="text" placeholder='Enter your score eg. 65, 34, 88'
+            class="form-control" />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="getFinalAnswer()">Calculate</button>
+            <button class="btn btn-outline-danger" type="button">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3 justify-content-center">
+      <h1 id='grade'>Enter results to begin...</h1>
+    </div>
+  </div>
+</body>
+
+<script>
+
+
+
+
+  function getInputValue(){
+    const inputElement = document.getElementById('scores')
+    const inputValue =  inputElement.value;
+    return inputValue;
+  }
+
+  function convertScoresToArray(scores){
+    const scoresArray = scores.split(',');
+    return scoresArray;
+  }
+  
+  function getSumOfScores(array){
+    let sum = 0
+    for(let score of array){
+      sum+= parseInt(score)
+    }
+    return sum
+  }
+
+  function getGrade(averageScore){
+    if(averageScore >= 75){
+      return "A1"
+    } else if(averageScore >= 70 && averageScore < 75){
+      return "A2"
+    } else if(averageScore >= 65 && averageScore < 70){
+      return "B3"
+    } else if(averageScore >= 60 && averageScore < 65){
+      return "B4"
+    } else if(averageScore >= 55 && averageScore < 60){
+      return "C5"
+    } else if(averageScore >= 50 && averageScore < 55){
+      return "C6"
+    } else if(averageScore >= 45 && averageScore < 50){
+      return "D7"
+    } else if(averageScore >= 40 && averageScore < 45){
+      return "E8"
+    } else if(averageScore < 40){
+      return "F9"  
+    }
+  }
+
+  function writeAnswerOnScreen(avg){
+    const answerElement=document.getElementById('grade')
+   answerElement.innerHTML = avg
+  }
+
+   function getFinalAnswer(){
+    // get value of the element
+    const scores = getInputValue()
+
+    // convert string to an array
+    const scoresArray = convertScoresToArray(scores)
+
+    // get sum of array values 
+    const totalScore = getSumOfScores(scoresArray)
+
+    // find average of array values
+    const average = totalScore / scoresArray.length
+    console.log(average)
+
+    // get correct grade according to average
+    const grade = getGrade(average);
+
+    // put grade in answer
+    writeAnswerOnScreen(grade)
+
+  }
+  
+</script>
+
+</html>
